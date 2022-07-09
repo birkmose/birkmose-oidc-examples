@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  heimdall:
+    image: "birkmose/oidc:1.0.0-alpha.1"
+    command: -c /config
+    volumes:
+      - ./HeimdallConfig:/config
+    ports: 
+      - 8080:8080
+  oidc_client:
+    build: ./OidcExampleClient
+#    image: test
+    ports: 
+      - 3000:80
+  oidc_frontend:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    build: ./OidcFrontend
+#    image: test
+    ports: 
+      - 9080:80
+
