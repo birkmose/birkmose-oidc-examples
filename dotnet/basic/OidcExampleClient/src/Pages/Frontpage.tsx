@@ -1,57 +1,65 @@
-import { AuthService } from '../services/AuthService';
 import React, { useEffect, useState } from 'react';
-import { User } from 'oidc-client-ts'
+import { User } from 'oidc-client-ts';
+import AuthService from '../services/AuthService';
+
 const authService = new AuthService();
 
-  const login = () => {
-    authService.login();
-  };
+const login = () => {
+  authService.login();
+};
 
-  const logout = async () => {
-    await authService.logout();
-  };
+const logout = async () => {
+  await authService.logout();
+};
 
-
-const FrontPage = () => {
+function FrontPage() {
   const [user, setUser] = useState<User | null>();
 
   const tokenRefresh = async () => {
-    const user = await authService.renewToken();
-    setUser(user);
+    const refreshedUser = await authService.renewToken();
+    setUser(refreshedUser);
   };
 
   const tokenExpiry = () => {
     if (user?.expires_in != null) {
-        let exp = new Date();
-        exp.setSeconds(exp.getSeconds() + user.expires_in);
-        return exp.toTimeString();
+      const exp = new Date();
+      exp.setSeconds(exp.getSeconds() + user.expires_in);
+      return exp.toTimeString();
     }
     return '';
-  }
+  };
+
   useEffect(() => {
     const getUser = async () => {
-        console.log("effect");
-        const user = await authService.userManager.getUser();
-        setUser(user)
+      const loadedUser = await authService.userManager.getUser();
+      setUser(loadedUser);
     };
 
     getUser();
-}, []);
+  }, []);
 
-    return (<div>
+  return (
+    <div>
       {
         user && (
-          <>         
-            <div>You are currently logged in as user: {user.profile.sub}</div>
-            <div>Token will expire: {tokenExpiry()}</div>
+          <>
+            <div>
+              You are currently logged in as user:
+              {user.profile.sub}
+            </div>
+            <div>
+              Token will expire:
+              {tokenExpiry()}
+            </div>
           </>
 
         )
       }
-        <button onClick={login}>Login</button>
-        <button onClick={tokenRefresh}>Refresh</button>
-        <button onClick={logout}>Logout</button>
-    </div>)
+      <button type="button" onClick={login}>Login</button>
+      <button type="button" onClick={tokenRefresh}>Refresh</button>
+      <button type="button" onClick={logout}>Logout</button>
+    </div>
+  );
 }
 
 export default FrontPage;
