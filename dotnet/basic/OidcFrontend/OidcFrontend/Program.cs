@@ -1,27 +1,31 @@
 using HeimdallClient.Api;
-using HeimdallClient.Client;
 using HeimdallClient.Model;
 using Microsoft.Extensions.Options;
 using OidcFrontend.Configuration;
 
-async Task BootstrapOauth2Clients(IClientApi clientApi)
+// Helper method to create a public oidc client registration with Heimdall
+async Task BootstrapOauth2Clients(IClientApi clientApi, PublicOidcClientConfig config)
 {
-    var existingClients = await clientApi.ClientsAsync();
-    // if (!existingClients.Any(c => c.ClientId == "42"))
-    {
-        await clientApi.CreateClientAsync(new ModelClient(
-            clientId: "demo",
-            returnUris: new List<string> { "http://localhost:3000/signin" },
-            postLogoutRedirectUris: new List<string> { "http://localhost:3000/signout"}, 
-            clientSecrets: new List<string>()));
-    }
+    await clientApi.CreateClientAsync(new ModelClient(
+        clientId: config.ClientId,
+        returnUris: config.ReturnUris,
+        postLogoutRedirectUris: config.PostLogoutRedirectUris,
+        clientSecrets: new List<string>()));
 }
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Make configurations available for dependency injection
 builder.Services.Configure<HeimdallConfig>(builder.Configuration.GetSection(nameof(HeimdallConfig)));
-builder.Services.AddSingleton(c => {
+builder.Services.Configure<IdpConfig>(builder.Configuration.GetSection(nameof(IdpConfig)));
+builder.Services.Configure<PublicOidcClientConfig>(builder.Configuration.GetSection(nameof(PublicOidcClientConfig)));
+
+// Create configuration singleton for Heimdall backchannel api
+builder.Services.AddSingleton(c =>
+{
     var config = c.GetService<IOptions<HeimdallConfig>>().Value;
 
     return new HeimdallClient.Client.Configuration
@@ -34,15 +38,18 @@ builder.Services.AddSingleton(c => {
     };
 });
 
+// Register various backchannel apis
 builder.Services.AddTransient<IAuthzApi, AuthzApi>();
 builder.Services.AddTransient<IClientApi, ClientApi>();
 builder.Services.AddTransient<ISessionApi, SessionApi>();
 
-
+// Build app
 var app = builder.Build();
 
+// Create public client registration in Heimdall
 var clientApi = app.Services.GetService<IClientApi>();
-await BootstrapOauth2Clients(clientApi);
+var publicOidcClientConfig = app.Services.GetService<IOptions<PublicOidcClientConfig>>().Value;
+await BootstrapOauth2Clients(clientApi, publicOidcClientConfig);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

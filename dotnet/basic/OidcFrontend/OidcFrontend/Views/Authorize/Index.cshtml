@@ -9,16 +9,15 @@
 <div class="form">
     <div class="thumbnail"></div>
     <h1>@Model.ApplicationName</h1>
-    <b class="message">@Model.Msg</b>
+    <b class="message">@Model.ErrorMessage</b>
 
     <form method="post" action="/login" class="login-form">
         <input type="hidden" name="authSid" value="@Model.AuthSid" />
-        <input type="hidden" name="application" value="@Model.ApplicationName" />
-
-
-        <input type="text" name="user" placeholder="Username" value="@Model.UserName" />
+        <input type="text" name="username" placeholder="Username" value="@Model.UserName" />
         <input type="password" name="password" placeholder="Password" />
 
         <button>Login</button>
     </form>
+
+    <i class="information">@Model.UserInformation</i>
 </div>

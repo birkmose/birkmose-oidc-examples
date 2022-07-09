@@ -1,12 +1,12 @@
 ﻿@model OidcFrontend.ViewModels.ErrorViewModel
 
 @{
-    ViewBag.Title = @Model.Title;
+    ViewBag.Title = @Model.ErrorTitle;
     Layout = "_Layout";
 }
     
 <div class="form">
     <div class="thumbnail"></div>
-    <h1>@Model.Title</h1>
-    <p>@Model.Description</p>
+    <h1>@Model.ErrorTitle</h1>
+    <p>@Model.ErrorMessage</p>
 </div>

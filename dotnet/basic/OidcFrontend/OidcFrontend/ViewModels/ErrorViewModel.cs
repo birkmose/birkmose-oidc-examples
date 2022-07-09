@@ -1,8 +1,18 @@
 namespace OidcFrontend.ViewModels
 {
+    /// <summary>
+    /// View-model for displaying error messages to the end-user
+    /// </summary>
     public class ErrorViewModel
     { 
-        public string Title { get; set; }
-        public string Description { get; set; }
+        /// <summary>
+        /// Title of the error message
+        /// </summary>
+        public string ErrorTitle { get; set; }
+
+        /// <summary>
+        /// Error message
+        /// </summary>
+        public string ErrorMessage { get; set; }
     }
 }
