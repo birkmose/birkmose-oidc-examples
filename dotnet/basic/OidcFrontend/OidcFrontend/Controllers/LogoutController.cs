@@ -1,7 +1,6 @@
 ﻿using OidcFrontend.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using HeimdallClient.Api;
-using HeimdallClient.Model;
+using Heimdall;
 using OidcFrontend.Util;
 
 namespace OidcFrontend.Controllers
@@ -11,10 +10,10 @@ namespace OidcFrontend.Controllers
     /// </summary>
     public class LogoutController : Controller
     {
-        private readonly ISessionApi _sessionApi;
-        public LogoutController(ISessionApi sessionApi)
+        private readonly HeimdallClient _heimdallClient;
+        public LogoutController(HeimdallClient heimdallClient)
         {
-            _sessionApi = sessionApi;
+            _heimdallClient = heimdallClient;
         }
 
         /// <summary>
@@ -33,10 +32,13 @@ namespace OidcFrontend.Controllers
             var session = Request.Cookies["session"];
 
             // Send the logout requests to Heimdall backchannel api
-            var logoutResponse = await _sessionApi.RpInitiatedLogoutAsync(
-                new LogoutRequest(query: query, session: session, confirmLogout: true)
-            );
-            
+            var logoutResponse = await _heimdallClient.RpInitiatedLogoutAsync(new LogoutRequest
+            {
+                Query = query,
+                Session = session,
+                ConfirmLogout = true
+            });
+
             // If we received an error from Heimdall, display it to the end-user
             if (logoutResponse.Error != null)
             {

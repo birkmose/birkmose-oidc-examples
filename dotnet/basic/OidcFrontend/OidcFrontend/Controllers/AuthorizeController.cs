@@ -1,7 +1,6 @@
 ﻿using OidcFrontend.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using HeimdallClient.Api;
-using HeimdallClient.Model;
+using Heimdall;
 using OidcFrontend.Configuration;
 using Microsoft.Extensions.Options;
 using OidcFrontend.Util;
@@ -13,14 +12,14 @@ namespace OidcFrontend.Controllers
     /// </summary>
     public class AuthorizeController : Controller
     {
-        private readonly IAuthzApi _authzApi;
+        private readonly HeimdallClient _heimdallClient;
         private readonly Dictionary<string, string> _userDatabase;
         private readonly string _userInformation;
         private readonly string _applicationName;
 
-        public AuthorizeController(IOptions<IdpConfig> config, IAuthzApi authzApi)
+        public AuthorizeController(IOptions<IdpConfig> config, HeimdallClient heimdallClient)
         {
-            _authzApi = authzApi;
+            _heimdallClient = heimdallClient;
             _applicationName = config.Value.ApplicationName;
             _userDatabase = config.Value.Users;
 
@@ -42,7 +41,7 @@ namespace OidcFrontend.Controllers
         /// <param name="authResponse">Authorization response received from Heimdall</param>
         /// <returns></returns>
         private async Task<IActionResult> HandleHeimdallAuthResponse(
-           AuthResponse authResponse)
+           Heimdall.AuthResponse authResponse)
         {
             // This deals with the case where Heimdall has requested us to redirect to the relying party.
             // This can either happen if some types of errors occurred - or if the authorization has completed and we can
@@ -76,12 +75,13 @@ namespace OidcFrontend.Controllers
             else if (authResponse?.Consent != null)
             {
                 // Inform Heimdall that the user is authenthicated and have consented to all requested scopes/claims
-                var consentResponse = await _authzApi.ConsentAcceptAsync(
-                    new ConsentAcceptRequest(
-                        authSid: authResponse.Consent.AuthSid,
-                        claims: new List<string>(),
-                        scopes: authResponse.Consent.RequestedScopes
-                    ));
+
+                var consentResponse = await _heimdallClient.ConsentAcceptAsync(new Heimdall.ConsentAcceptRequest
+                {
+                    AuthSid = authResponse.Consent.AuthSid,
+                    Claims = new List<string>(),
+                    Scopes = authResponse.Consent.RequestedScopes
+                });
 
                 return await HandleHeimdallAuthResponse(consentResponse);
             }
@@ -117,11 +117,11 @@ namespace OidcFrontend.Controllers
             var session = Request.Cookies["session"];
 
             // Send the authorize requests to Heimdall backchannel api
-            var authResponse = await _authzApi.AuthorizeAsync(new AuthorizeRequest
-            (
-               query: query,
-               session: session
-            ));
+            var authResponse = await _heimdallClient.AuthorizeAsync(new Heimdall.AuthorizeRequest
+            {
+                Query = query,
+                Session = session
+            });
 
             // Handle the response from Heimdall
             return await HandleHeimdallAuthResponse(authResponse);
@@ -146,8 +146,12 @@ namespace OidcFrontend.Controllers
             {
                 // The user entered correct credentials. We registers the end-user as having been authorized
                 // using the Heimdall backchannel API
-                var authResponse = await _authzApi.AuthorizeAcceptAsync(
-                    new AuthorizeAcceptRequest(authSid: authSid, sub: username)
+                var authResponse = await _heimdallClient.AuthorizeAcceptAsync(
+                    new Heimdall.AuthorizeAcceptRequest
+                    {
+                        AuthSid = authSid,
+                        Sub = username,
+                    }
                 );
 
                 return await HandleHeimdallAuthResponse(authResponse);
