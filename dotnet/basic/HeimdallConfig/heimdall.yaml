@@ -3,6 +3,7 @@ authorization_endpoint: "http://localhost:9080/oauth2/v2.0/authorize"
 end_session_endpoint: "http://localhost:9080/oauth2/v2.0/logout"
 api_key: "Wa=RBqh<dF3L58cwPrL)qv}3Gh6crr"
 backchannel_tcp_port: 8090
+worker_threads: 1
 encryption_keys:
   - id: 1
     key: "%D*G-KaPdSgVkYp3s6v9y$B&E(H+MbQe"

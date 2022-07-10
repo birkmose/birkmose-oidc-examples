@@ -4,10 +4,6 @@ services:
   heimdall:
     image: "birkmose/oidc:1.0.0-alpha.1"
     command: -c /config
-    deploy:
-      resources:
-        limits:
-          cpus: 1
     volumes:
       - ./HeimdallConfig:/config
     ports: 
