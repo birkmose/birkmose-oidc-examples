@@ -6,7 +6,7 @@ using OidcFrontend.Configuration;
 // Helper method to create a public oidc client registration with Heimdall
 async Task BootstrapOauth2Clients(IClientApi clientApi, PublicOidcClientConfig config)
 {
-    var foo = new Heimdall.Client("http://127.0.0.1:8090", new HttpClient());
+    var foo = new Heimdall.HeimdallClient("http://127.0.0.1:8090", new HttpClient());
     var clients = await foo.ClientsAsync();
     await clientApi.CreateClientAsync(new ModelClient(
         clientId: config.ClientId,
