@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HeimdallClient\HeimdallClient.csproj" />
+	  <ProjectReference Include="..\HeimdallClient\HeimdallClient.csproj" />
+	  <ProjectReference Include="..\Heimdall\Heimdall.csproj" />
+
   </ItemGroup>
 
 </Project>
