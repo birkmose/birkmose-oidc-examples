@@ -1,97 +1,10 @@
 issuer_url: http://localhost:8080
 authorization_endpoint: "http://localhost:9080/oauth2/v2.0/authorize"
 end_session_endpoint: "http://localhost:9080/oauth2/v2.0/logout"
-maintenance_interval: 3600s
-session_lifetime: 3600sec
-auth_session_timeout: 100s
-authorization_code_timeout: 100s
-logout_session_timeout: 100s
-par_uris_timeout: 100s
-worker_threads: 1
-refresh_token_timeout: 10s
-allow_implicit_flow: true
-tls_config:
-  #certificate_path: /home/birkmose/workspace/idp/server/cert.pem
-  #private_key_path: /home/birkmose/workspace/idp/server/key.pem
-  certificate_path: /mnt/data/heimdall_certs/heimdall-selfsigned.crt
-  private_key_path: /mnt/data/heimdall_certs/heimdall-selfsigned.key
 api_key: "Wa=RBqh<dF3L58cwPrL)qv}3Gh6crr"
 backchannel_tcp_port: 8090
 encryption_keys:
-  - id: 2
-    key: some_key1
-  - id: 4
-    key: some_key2
   - id: 1
-    key: some_key3
-  - id: 3
-    key: some_key4
-  #open_telemetry:
-  #type: "jaeger"
-  #type: "application_insights"
-  #instrumentation_key: " "
-#worker_threads: 4
+    key: "%D*G-KaPdSgVkYp3s6v9y$B&E(H+MbQe"
 storage_provider: 
-  #type: "rocksdb"
-  #path: "heimdall_rocksdb2"
   type: "memory"
-  # type: "postgres"
-  # username: "postgres"
-  # password: "Passw0rd"
-  # hostname: "20.223.212.65"
-  # dbname: "oidc"
-  
-  # type: "mssql"
-  # username: "heimdall"
-  # password: "Passw0rd"
-  # hostname: "heimdalloidc.database.windows.net"
-  # trust_cert: true
-  # auto_migrate_db: true
-  # timeout_ms: 2500
-#  type: "mssql"
-#  username: "sa"
-#  password: "Passw0rd"
-#  hostname: "localhost"
-#  dbname: heimdall_test
-#  create_database_if_missing: true
-#  pool_max_size: 200
-#  trust_cert: true
-#  auto_migrate_db: true
-#  timeout_ms: 2500
-
-  #type: "redis"
-  #host: "redis://localhost"
-  # type: combined
-  # options:
-  #   - provider:
-  #       type: "memory"
-  #     targets:
-  #       - long_lived
-  #       #- session
-  # #  - provider:
-  #  #     type: "mssql"
-  #   #    username: "sa"
-  #    #   password: "Passw0rd"
-  #    #   hostname: "localhost"
-  #    #   dbname: heimdall_test
-  #    #   pool_max_size: 200
-  #    #   trust_cert: true
-  #       #type: "postgres"
-  #       #username: "postgres"
-  #       #password: "Passw0rd"
-  #       #hostname: "localhost"
-  #       #dbname: "oidc"
-
-  #   #  targets:
-  #     #- long_lived
-  #   #  - session
-  #   #  - transient
-  #   - provider:
-  #       type: redis
-  #       host: "localhost"
-  #     targets:
-  #     # - long_lived
-  #     - transient
-  #     - session
-      
-

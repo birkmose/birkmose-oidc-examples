@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Spinner from '../Components/Spinner';
-import AuthService from '../services/AuthService';
+import AuthService from '../Services/AuthService';
 
 const authService = new AuthService();
 

@@ -1,6 +1,6 @@
 import { User, UserManager } from 'oidc-client-ts';
 
-import Constants from '../helpers/Constants';
+import Constants from '../Helpers/Constants';
 
 export default class AuthService {
   public userManager: UserManager;

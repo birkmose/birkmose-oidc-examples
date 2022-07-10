@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { User } from 'oidc-client-ts';
-import AuthService from '../services/AuthService';
+import AuthService from '../Services/AuthService';
 
 const authService = new AuthService();
 
-const login = () => {
-  authService.login();
-};
-
-const logout = async () => {
-  await authService.logout();
-};
-
 const FrontPage = () => {
   const [user, setUser] = useState<User | null>();
+
+  const login = () => {
+    authService.login();
+  };
+
+  const logout = async () => {
+    await authService.logout();
+  };
 
   const tokenRefresh = async () => {
     const refreshedUser = await authService.renewToken();
