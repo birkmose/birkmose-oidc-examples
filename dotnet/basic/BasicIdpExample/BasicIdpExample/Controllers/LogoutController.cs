@@ -1,9 +1,9 @@
-﻿using OidcFrontend.ViewModels;
+﻿using BasicIdpExample.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Heimdall;
-using OidcFrontend.Util;
+using BasicIdpExample.Util;
 
-namespace OidcFrontend.Controllers
+namespace BasicIdpExample.Controllers
 {
     /// <summary>
     /// MVC Controller for the end session endpoint of the basic Idp example

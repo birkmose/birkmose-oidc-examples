@@ -8,16 +8,16 @@ services:
       - ./HeimdallConfig:/config
     ports: 
       - 8080:8080
-  oidc_client:
+  oidc_demo_client:
     volumes:
       - ./OidcDemoClientConfig:/usr/share/nginx/html/config
     image: birkmose/oidc-demo-client:latest
     ports: 
       - 3000:80
-  oidc_frontend:
+  basic_idp_example:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-    build: ./OidcFrontend
+    build: ./BasicIdpExample
     ports: 
       - 9080:80
 

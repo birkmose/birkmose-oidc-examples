@@ -1,6 +1,6 @@
 using Heimdall;
 using Microsoft.Extensions.Options;
-using OidcFrontend.Configuration;
+using BasicIdpExample.Configuration;
 
 // Helper method to create a public oidc client registration with Heimdall
 

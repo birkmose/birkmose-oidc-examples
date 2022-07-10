@@ -1,4 +1,4 @@
-﻿namespace OidcFrontend.Configuration
+﻿namespace BasicIdpExample.Configuration
 {
 	/// <summary>
 	/// Configuration of the one supported public Oidc Client

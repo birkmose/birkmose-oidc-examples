@@ -1,4 +1,4 @@
-﻿namespace OidcFrontend.Util
+﻿namespace BasicIdpExample.Util
 {
     /// <summary>
     /// Helper utils to store/clear single sign-on cookies

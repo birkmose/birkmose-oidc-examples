@@ -1,4 +1,4 @@
-namespace OidcFrontend.ViewModels
+namespace BasicIdpExample.ViewModels
 {
     /// <summary>
     /// View-model for the login dialog

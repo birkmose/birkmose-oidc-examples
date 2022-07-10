@@ -1,11 +1,11 @@
-﻿using OidcFrontend.ViewModels;
+﻿using BasicIdpExample.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Heimdall;
-using OidcFrontend.Configuration;
+using BasicIdpExample.Configuration;
 using Microsoft.Extensions.Options;
-using OidcFrontend.Util;
+using BasicIdpExample.Util;
 
-namespace OidcFrontend.Controllers
+namespace BasicIdpExample.Controllers
 {
     /// <summary>
     /// MVC Controller for the authorize endpoint of the basic Idp example
@@ -125,7 +125,6 @@ namespace OidcFrontend.Controllers
 
             // Handle the response from Heimdall
             return await HandleHeimdallAuthResponse(authResponse);
-
         }
 
         /// <summary>
