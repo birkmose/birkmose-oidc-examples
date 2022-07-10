@@ -12,7 +12,7 @@ const logout = async () => {
   await authService.logout();
 };
 
-function FrontPage() {
+const FrontPage = () => {
   const [user, setUser] = useState<User | null>();
 
   const tokenRefresh = async () => {
@@ -40,26 +40,41 @@ function FrontPage() {
 
   return (
     <div>
+      <h1>Example OIDC Application</h1>
       {
         user && (
-          <>
-            <div>
+          <div className="information">
+            <p>
               You are currently logged in as user:
+              {' '}
               {user.profile.sub}
-            </div>
-            <div>
-              Token will expire:
+              .
+              <br />
+              Access Token will expire:
               {tokenExpiry()}
-            </div>
-          </>
+              .
+            </p>
+            <p>
+              If you press the &quot;Login (SSO)&quot; button,
+              you will observe the single sign-on functionality of the OIDC server.
+            </p>
+          </div>
 
         )
       }
-      <button type="button" onClick={login}>Login</button>
-      <button type="button" onClick={tokenRefresh}>Refresh</button>
-      <button type="button" onClick={logout}>Logout</button>
+      {!user && (
+      <div className="information">
+        You are currently not logged in.
+        <br />
+        Press the &quot;Login&quot; button, to initialize an authorization with the OIDC server.
+      </div>
+      )}
+      {!user && <button type="button" onClick={login}>Login</button>}
+      {user && <button type="button" onClick={login}>Login (SSO)</button>}
+      {user && <button type="button" onClick={tokenRefresh}>Refresh Token</button>}
+      {user && <button type="button" onClick={logout}>Logout</button>}
     </div>
   );
-}
+};
 
 export default FrontPage;

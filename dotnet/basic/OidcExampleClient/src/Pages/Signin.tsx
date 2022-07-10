@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Spinner from '../Components/Spinner';
 import AuthService from '../services/AuthService';
 
 const authService = new AuthService();
 
-function Signin() {
+const Signin = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const finishLogin = async () => {
@@ -15,10 +16,8 @@ function Signin() {
     finishLogin();
   }, [navigate]);
   return (
-    <div>
-      Redirecting...
-    </div>
+    <Spinner />
   );
-}
+};
 
 export default Signin;

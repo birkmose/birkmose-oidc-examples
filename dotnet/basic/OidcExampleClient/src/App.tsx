@@ -4,9 +4,10 @@ import './App.css';
 import FrontPage from './Pages/Frontpage';
 import Signin from './Pages/Signin';
 import Signout from './Pages/Signout';
+import Layout from './Components/Layout';
 
-function App() {
-  return (
+const App = () => (
+  <Layout>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<FrontPage />} />
@@ -19,7 +20,7 @@ function App() {
         {/* </Route> */}
       </Routes>
     </BrowserRouter>
-  );
-}
+  </Layout>
+);
 
 export default App;
