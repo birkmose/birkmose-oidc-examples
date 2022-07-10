@@ -11,7 +11,7 @@ services:
   oidc_demo_client:
     volumes:
       - ./OidcDemoClientConfig:/usr/share/nginx/html/config
-    image: birkmose/oidc-demo-client:latest
+    image: birkmose/oidc-demo-client
     ports: 
       - 3000:80
   basic_idp_example:
