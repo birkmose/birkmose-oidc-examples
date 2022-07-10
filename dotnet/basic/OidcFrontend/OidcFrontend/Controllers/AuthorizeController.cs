@@ -41,7 +41,7 @@ namespace OidcFrontend.Controllers
         /// <param name="authResponse">Authorization response received from Heimdall</param>
         /// <returns></returns>
         private async Task<IActionResult> HandleHeimdallAuthResponse(
-           Heimdall.AuthResponse authResponse)
+           AuthResponse authResponse)
         {
             // This deals with the case where Heimdall has requested us to redirect to the relying party.
             // This can either happen if some types of errors occurred - or if the authorization has completed and we can
@@ -76,7 +76,7 @@ namespace OidcFrontend.Controllers
             {
                 // Inform Heimdall that the user is authenthicated and have consented to all requested scopes/claims
 
-                var consentResponse = await _heimdallClient.ConsentAcceptAsync(new Heimdall.ConsentAcceptRequest
+                var consentResponse = await _heimdallClient.ConsentAcceptAsync(new ConsentAcceptRequest
                 {
                     AuthSid = authResponse.Consent.AuthSid,
                     Claims = new List<string>(),
@@ -117,7 +117,7 @@ namespace OidcFrontend.Controllers
             var session = Request.Cookies["session"];
 
             // Send the authorize requests to Heimdall backchannel api
-            var authResponse = await _heimdallClient.AuthorizeAsync(new Heimdall.AuthorizeRequest
+            var authResponse = await _heimdallClient.AuthorizeAsync(new AuthorizeRequest
             {
                 Query = query,
                 Session = session
@@ -147,7 +147,7 @@ namespace OidcFrontend.Controllers
                 // The user entered correct credentials. We registers the end-user as having been authorized
                 // using the Heimdall backchannel API
                 var authResponse = await _heimdallClient.AuthorizeAcceptAsync(
-                    new Heimdall.AuthorizeAcceptRequest
+                    new AuthorizeAcceptRequest
                     {
                         AuthSid = authSid,
                         Sub = username,
