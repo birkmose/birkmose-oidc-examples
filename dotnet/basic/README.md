@@ -21,5 +21,5 @@ Once the containers have started, you can access the example OIDC example in you
 The example runs several containers:
 
 * `heimdall`: The Heimdall backend itself. The configuration files for Heimdall are stored in the [HeimdallConfig](./HeimdallConfig) folder.
-* `oidc_demo_client`: A simple React-based single-page app (SPA), that acts as a public OIDC client that we will use to authenticate our end-user using the Idp Example. The source code for this SPA can be found in the [client/OidcExampleClient](../../client/OidcExampleClient/) folder. Configuration for the SPA OIDC client is stored in the [OidcDemoClientConfig](./OidcDemoClientConfig/) folder.
+* `oidc_demo_client`: A simple React-based single-page app (SPA), acting as a public OIDC client that we will use to authenticate our end-users using the Idp example. The source code for this SPA can be found in the [client/oidc_demo_client](../../client/oidc_demo_client/) folder. Configuration for the SPA OIDC client is stored in the [OidcDemoClientConfig](./OidcDemoClientConfig/) folder.
 * `basic_idp_example`: The Basic Idp example itself, programmed using .NET6, and the ASP.NET Core MVC Framework. The source for this example can be found in the [BasicIdpExample](./BasicIdpExample/) folder.
