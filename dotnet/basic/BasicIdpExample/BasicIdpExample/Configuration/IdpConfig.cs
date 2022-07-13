@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-
-namespace Heimdall.Examples.Basic.Configuration
+﻿namespace Heimdall.Examples.Basic.Configuration
 {
-	/// <summary>
-	/// Configuration of the Idp Server
-	/// </summary>
-	public class IdpConfig
+    /// <summary>
+    /// Configuration of the Idp Server
+    /// </summary>
+    public class IdpConfig
 	{
 		/// <summary>
 		/// Application name displayed at login prompt

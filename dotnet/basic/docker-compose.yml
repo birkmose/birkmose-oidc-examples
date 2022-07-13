@@ -8,6 +8,7 @@ services:
       - ./HeimdallConfig:/config
     ports: 
       - 8080:8080
+      - 8090:8090
   oidc_demo_client:
     volumes:
       - ./OidcDemoClientConfig:/usr/share/nginx/html/config
@@ -19,5 +20,5 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
     build: ./BasicIdpExample
     ports: 
-      - 9080:80
+     - 9080:80
 

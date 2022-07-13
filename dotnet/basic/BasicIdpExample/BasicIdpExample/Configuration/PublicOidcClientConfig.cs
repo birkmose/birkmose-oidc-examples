@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-
-namespace Heimdall.Examples.Basic.Configuration
+﻿namespace Heimdall.Examples.Basic.Configuration
 {
-	/// <summary>
-	/// Configuration of the one supported public Oidc Client
-	/// </summary>
-	public class PublicOidcClientConfig
+    /// <summary>
+    /// Configuration of the one supported public Oidc Client
+    /// </summary>
+    public class PublicOidcClientConfig
 	{
 		/// <summary>
 		/// Client identifier used in the authorize requests

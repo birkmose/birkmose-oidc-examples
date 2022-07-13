@@ -10,7 +10,6 @@
     <div class="thumbnail"></div>
     <h1>@Model.ApplicationName</h1>
     <b class="message">@Model.ErrorMessage</b>
-
     <form method="post" action="/login" class="login-form">
         <input type="hidden" name="authSid" value="@Model.AuthSid" />
         <input type="text" name="username" placeholder="Username" value="@Model.UserName" />

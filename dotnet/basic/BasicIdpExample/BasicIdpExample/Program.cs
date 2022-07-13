@@ -1,13 +1,6 @@
-using System;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
 using Heimdall;
 using Microsoft.Extensions.Options;
 using Heimdall.Examples.Basic.Configuration;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 // Helper method to create a public oidc client registration with Heimdall.
 async Task BootstrapOauth2Clients(PublicOidcClientConfig config, HeimdallClient client)
