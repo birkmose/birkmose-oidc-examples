@@ -1,9 +1,15 @@
+using System;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
 using Heimdall;
 using Microsoft.Extensions.Options;
-using BasicIdpExample.Configuration;
+using Heimdall.Examples.Basic.Configuration;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
-// Helper method to create a public oidc client registration with Heimdall
-
+// Helper method to create a public oidc client registration with Heimdall.
 async Task BootstrapOauth2Clients(PublicOidcClientConfig config, HeimdallClient client)
 {
     var oidcClient = new Client
@@ -18,9 +24,9 @@ async Task BootstrapOauth2Clients(PublicOidcClientConfig config, HeimdallClient 
     }
     catch (HttpRequestException)
     {
-        // Since this example is typically run using docker compose, the Heimdall container might
-        // not be booted by the time we start the dotnet container - this is just a simple error handling of that potential race condition
-        Console.WriteLine("Failed bootstraping OIDC clients - will retry in 2 seconds");
+        // Since this example is typically run using docker compose, the Heimdall container might not be booted by the
+        // time we start the dotnet container - this is just a simple error handling of that potential race condition.
+        Console.WriteLine("Failed bootstrapping OIDC clients - will retry in 2 seconds");
         Thread.Sleep(2000);
         await client.CreateClientAsync(oidcClient);
     }
@@ -38,7 +44,7 @@ builder.Services.Configure<IdpConfig>(builder.Configuration.GetSection(nameof(Id
 builder.Services.Configure<PublicOidcClientConfig>(builder.Configuration.GetSection(nameof(PublicOidcClientConfig)));
 builder.Services.AddHttpClient();
 
-// Create HeimdallClient singleton
+// Create HeimdallClient singleton.
 builder.Services.AddSingleton(c =>
 {
     var client = c.GetService<HttpClient>();
@@ -49,10 +55,10 @@ builder.Services.AddSingleton(c =>
 });
 
 
-// Build app
+// Build app.
 var app = builder.Build();
 
-// Create public client registration in Heimdall
+// Create public client registration in Heimdall.
 var publicOidcClientConfig = app.Services.GetService<IOptions<PublicOidcClientConfig>>().Value;
 var heimdallClient = app.Services.GetService<Heimdall.HeimdallClient>();
 await BootstrapOauth2Clients(publicOidcClientConfig, heimdallClient);

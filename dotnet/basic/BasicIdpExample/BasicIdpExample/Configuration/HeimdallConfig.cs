@@ -1,4 +1,4 @@
-﻿namespace BasicIdpExample.Configuration
+﻿namespace Heimdall.Examples.Basic.Configuration
 {
     /// <summary>
     /// Configuration of the Heimdall backend

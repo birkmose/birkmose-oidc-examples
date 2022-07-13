@@ -1,4 +1,6 @@
-﻿namespace BasicIdpExample.Configuration
+﻿using System.Collections.Generic;
+
+namespace Heimdall.Examples.Basic.Configuration
 {
 	/// <summary>
 	/// Configuration of the one supported public Oidc Client

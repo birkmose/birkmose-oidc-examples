@@ -1,4 +1,6 @@
-﻿namespace BasicIdpExample.Configuration
+﻿using System.Collections.Generic;
+
+namespace Heimdall.Examples.Basic.Configuration
 {
 	/// <summary>
 	/// Configuration of the Idp Server
@@ -10,7 +12,7 @@
 		/// </summary>
 		public string ApplicationName { get; set; }
 		/// <summary>
-		/// Userdatabase of permitted users, specified as key/value pairs (key = username, value = password)
+		/// User database of permitted users, specified as key/value pairs (key = username, value = password)
 		/// </summary>
 		public Dictionary<string, string> Users { get; set; }
 	}
